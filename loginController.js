@@ -1,5 +1,6 @@
 User = require("./user");
 let jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 exports.login = function(req, res) {
   let username = req.body.username;
   let password = req.body.password;
@@ -12,9 +13,8 @@ exports.login = function(req, res) {
           message: "Incorrect username or password"
         });
       } else {
-        let dbUsername = user.username;
         let dbPassword = user.password;
-        if (username === dbUsername && password === dbPassword) {
+        if (bcrypt.compareSync(password, dbPassword)) {
           let token = jwt.sign({ username: username }, process.env.SECRET, {
             expiresIn: "24h" // expires in 24 hours
           });
