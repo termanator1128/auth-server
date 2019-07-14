@@ -1,13 +1,13 @@
-User = require("./user");
+PortalUser = require("../models/PortalUser");
 let jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 exports.login = function(req, res) {
   let username = req.body.username;
   let password = req.body.password;
   if (username && password) {
-    User.findOne({ username: username }, function(err, user) {
+    PortalUser.findOne({ username: username }, function(err, user) {
       if (err || !user) {
-        res.status(403);
+        res.status(401);
         res.json({
           success: false,
           message: "Incorrect username or password"
@@ -25,7 +25,7 @@ exports.login = function(req, res) {
             token: token
           });
         } else {
-          res.status(403);
+          res.status(401);
           res.json({
             success: false,
             message: "Incorrect username or password"

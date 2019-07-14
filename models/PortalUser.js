@@ -6,8 +6,12 @@ var userSchema = mongoose.Schema({
 });
 
 // Export Contact model
-var User = (module.exports = mongoose.model("user", userSchema, "user"));
+var PortalUser = (module.exports = mongoose.model(
+  "portalUser",
+  userSchema,
+  "portalUser"
+));
 
 module.exports.get = function(callback, limit) {
-  User.find(callback).limit(limit);
+  PortalUser.find(callback).limit(limit);
 };

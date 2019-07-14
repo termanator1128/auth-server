@@ -7,7 +7,6 @@ https://medium.com/dev-bits/a-guide-for-adding-jwt-token-based-authentication-to
 let jwt = require("jsonwebtoken");
 
 exports.checkToken = (req, res, next) => {
-  console.log(req.body);
   let token = req.body.token;
   if (token) {
     if (token.startsWith("Bearer ")) {
